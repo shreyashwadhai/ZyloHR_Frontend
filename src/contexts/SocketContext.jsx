@@ -14,7 +14,7 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     if (user) {
-      const newSocket = io("https://zylohr-backend.onrender.com", {
+      const newSocket = io(`${import.meta.env.VITE_BASE_URL}`, {
         transports: ["websocket", "polling"],
         // auth: {
         //   token: localStorage.getItem("token"),

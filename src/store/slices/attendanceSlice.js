@@ -49,7 +49,7 @@ export const punchIn = createAsyncThunk(
   async (employeeId, { rejectWithValue }) => {
     try {
       console.log("Sending employeeId:", employeeId);
-      const response = await axios.post("https://zylohr-backend.onrender.com/api/attendance/punch-in", { employeeId }, {
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/attendance/punch-in`, { employeeId }, {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${localStorage.getItem("token")}`,
@@ -69,7 +69,7 @@ export const punchOut = createAsyncThunk(
   "attendance/punchOut",
   async (employeeId, { rejectWithValue }) => {
     try {
-      const response = await axios.post("https://zylohr-backend.onrender.com/api/attendance/punch-out", { employeeId });
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}` + "/api/attendance/punch-out", { employeeId });
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -82,7 +82,7 @@ export const fetchTodayAttendance = createAsyncThunk(
   async (employeeId, { rejectWithValue }) => {
     try {
 
-      const response = await axios.get(`https://zylohr-backend.onrender.com/api/attendance/today/${employeeId}`,
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/attendance/today/${employeeId}`,
         {
           headers: {
             "Authorization": `Bearer ${localStorage.getItem("token")}`,
@@ -102,8 +102,8 @@ export const fetchAttendanceRecords = createAsyncThunk(
   async (employeeId, { rejectWithValue }) => {
     try {
       console.log(employeeId);
-      
-      const response = await axios.get(`https://zylohr-backend.onrender.com/api/attendance/records/${employeeId}`,
+
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/attendance/records/${employeeId}`,
         {
           headers: {
             "Authorization": `Bearer ${localStorage.getItem("token")}`,
@@ -111,7 +111,7 @@ export const fetchAttendanceRecords = createAsyncThunk(
         }
       );
       console.log("Attendance records response:", response.data);
-      
+
       return response.data.data || response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -204,9 +204,9 @@ const attendanceSlice = createSlice({
       })
       .addCase(fetchAttendanceRecords.fulfilled, (state, action) => {
         state.loading = false;
-        state.attendanceRecords =  Array.isArray(action.payload) 
-        ? action.payload 
-        : [];
+        state.attendanceRecords = Array.isArray(action.payload)
+          ? action.payload
+          : [];
       })
       .addCase(fetchAttendanceRecords.rejected, (state, action) => {
         state.loading = false;

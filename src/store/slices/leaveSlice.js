@@ -188,7 +188,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const token = localStorage.getItem("token");
-const BASE_URL = "https://zylohr-backend.onrender.com/api";
+const BASE_URL = `${import.meta.env.VITE_BASE_URL}/api`;
 
 export const fetchLeaves = createAsyncThunk(
   "leaves/fetchAll",

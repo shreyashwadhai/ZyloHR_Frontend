@@ -9,7 +9,7 @@ export const getAllEmployees = createAsyncThunk(
     try {
       const token = localStorage.getItem("token");
 
-      const response = await axios.get("https://zylohr-backend.onrender.com/api/users", {
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}` + "/api/users", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -32,7 +32,7 @@ export const uploadProfilePicture = createAsyncThunk(
       formData.append("media", file);
 
       const response = await axios.put(
-        `https://zylohr-backend.onrender.com/api/users/profile/${userId}`,
+        `${import.meta.env.VITE_BASE_URL}/api/users/profile/${userId}`,
         formData,
         {
           headers: {
@@ -58,7 +58,7 @@ export const updateEmployeeAPI = createAsyncThunk(
   async ({ id, data }, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.put(`https://zylohr-backend.onrender.com/api/users/${id}`, data, {
+      const response = await axios.put(`${import.meta.env.VITE_BASE_URL}/api/users/${id}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -79,7 +79,7 @@ export const createEmployeeAPI = createAsyncThunk(
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "https://zylohr-backend.onrender.com/api/users",
+        `${import.meta.env.VITE_BASE_URL}` + "/api/users",
         data,
         {
           headers: {
@@ -100,7 +100,7 @@ export const deleteEmployeeAPI = createAsyncThunk(
   async (id, { rejectWithValue, dispatch }) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`https://zylohr-backend.onrender.com/api/users/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_BASE_URL}/api/users/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
