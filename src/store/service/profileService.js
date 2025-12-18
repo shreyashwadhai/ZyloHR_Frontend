@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_URL = 'https://zylohr-backend.onrender.com/api/users/profile';
+const API_URL = `${import.meta.env.VITE_BASE_URL}/api/users/profile`;
+
 
 // Update user profile
 const updateProfile = async (profileData) => {

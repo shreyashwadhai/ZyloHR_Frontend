@@ -19,7 +19,7 @@ const LeaveModel = ({ isOpen, onClose, onSave, leave, userRole, user }) => {
 
   // Fetch employees for admin/manager
   useEffect(() => {
-    const BASE_URL = "https://zylohr-backend.onrender.com/api";
+    const BASE_URL = import.meta.env.BASE_URL;
     const token = localStorage.getItem("token");
 
     if ((userRole === "admin" || userRole === "manager") && !leave) {

@@ -18,7 +18,7 @@ export const fetchPosts = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
 
-      const response = await axios.get("https://zylohr-backend.onrender.com/api/feeds",
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}` + "/api/feeds",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -54,7 +54,7 @@ export const createPost = createAsyncThunk(
       }
 
       const response = await axios.post(
-        "https://zylohr-backend.onrender.com/api/feed",
+        `${import.meta.env.VITE_BASE_URL}` + "/api/feed",
         formData,
         {
           headers: {
@@ -78,7 +78,7 @@ export const likePost = createAsyncThunk(
   "feeds/likePost",
   async (postId, { rejectWithValue }) => {
     try {
-      const response = await axios.put(`https://zylohr-backend.onrender.com/api/feed/${postId}`);
+      const response = await axios.put(`${import.meta.env.VITE_BASE_URL}/api/feed/${postId}`);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -90,7 +90,7 @@ export const addComment = createAsyncThunk(
   "feeds/addComment",
   async ({ postId, comment }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`https://zylohr-backend.onrender.com/api/feed/comment/${postId}`, {
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/feed/comment/${postId}`, {
         text: comment.content,
       });
       return { postId, comment: response.data };

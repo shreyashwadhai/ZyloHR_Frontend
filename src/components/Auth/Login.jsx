@@ -19,10 +19,11 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    const response = axios.post("https://zylohr-backend.onrender.com/auth/login", {
+    const response = axios.post(`${import.meta.env.VITE_BASE_URL}/auth/login`, {
       email: credentials.email,
       password: credentials.password,
     });
+
     response
       .then((res) => {
         const user = res.data.data;
